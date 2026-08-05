@@ -198,6 +198,10 @@ section {
   margin-top: 3.25rem;
 }
 
+.intro {
+  margin-top: 2.5rem;
+}
+
 h2 {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.8125rem;

@@ -86,21 +86,28 @@ export default function App() {
         <ThemeToggle />
       </header>
 
-      <section aria-labelledby="services">
-        <h2 id="services" className="spine-heading">
-          What I do
-        </h2>
-        {content.services.map((p, i) => (
+      <div className="intro">
+        {content.intro.map((p, i) => (
           <p key={p} className={i === 0 ? 'hero' : undefined}>
             {p}
           </p>
+        ))}
+      </div>
+
+      <section aria-labelledby="who-i-work-with">
+        <h2 id="who-i-work-with" className="spine-heading">
+          Who I work with
+        </h2>
+        {content.whoIWorkWith.map((p) => (
+          <p key={p}>{p}</p>
         ))}
       </section>
 
       <section aria-labelledby="specialties">
         <h2 id="specialties" className="spine-heading">
-          What I specialize in
+          What I am actually good at
         </h2>
+        <p>Three things, and I would rather be honest about the list being short.</p>
         {content.specialties.map((s) => (
           <div key={s.title}>
             <h3>{s.title}</h3>
@@ -111,7 +118,7 @@ export default function App() {
 
       <section aria-labelledby="work">
         <h2 id="work" className="spine-heading">
-          Selected client work
+          Some things I have built
         </h2>
         {content.work.map((w) => (
           <div key={w.client}>
@@ -123,14 +130,14 @@ export default function App() {
 
       <section aria-labelledby="background">
         <h2 id="background" className="spine-heading">
-          Background
+          Before this
         </h2>
         <p>{content.background}</p>
       </section>
 
       <section aria-labelledby="engagements">
         <h2 id="engagements" className="spine-heading">
-          How engagements work
+          Working together
         </h2>
         {content.engagements.map((p) => (
           <p key={p}>{p}</p>
@@ -139,7 +146,7 @@ export default function App() {
 
       <section aria-labelledby="contact">
         <h2 id="contact" className="spine-heading">
-          Contact
+          Getting hold of me
         </h2>
         <ul>
           <li>
@@ -157,11 +164,12 @@ export default function App() {
           </li>
         </ul>
         <p>{contact.location}</p>
+        <p>No contact form. I would rather you just emailed me.</p>
       </section>
 
       <section aria-labelledby="policies">
         <h2 id="policies" className="spine-heading">
-          Policies
+          The boring but necessary part
         </h2>
         {content.policies.map((p) => (
           <div key={p.title}>
