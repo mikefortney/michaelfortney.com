@@ -37,6 +37,12 @@ describe('Stripe website checklist', () => {
 describe('claim rules from spec section 5', () => {
   beforeEach(() => render(<App />))
 
+  it('renders a substantial body, so the forbidden-string checks below are not vacuous', () => {
+    // Current rendered body text is ~3665 characters; 1000 is comfortably above an
+    // empty render and comfortably below that, so this catches a broken/blank page.
+    expect(document.body.textContent?.length ?? 0).toBeGreaterThan(1000)
+  })
+
   it.each([
     'Wild Tree',
     'LA Neurosciences',

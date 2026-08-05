@@ -57,10 +57,14 @@ export default function App() {
             <a href={`mailto:${contact.email}`}>{contact.email}</a>
           </li>
           <li>
-            <a href={contact.calendly}>Book a call</a>
+            <a href={contact.calendly} rel="noopener noreferrer" target="_blank">
+              Book a call
+            </a>
           </li>
           <li>
-            <a href={contact.linkedin}>LinkedIn</a>
+            <a href={contact.linkedin} rel="noopener noreferrer" target="_blank">
+              LinkedIn
+            </a>
           </li>
         </ul>
         <p>{contact.location}</p>
