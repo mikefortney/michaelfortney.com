@@ -17,7 +17,7 @@ export const content: SiteContent = {
   dba: 'Grey Matter Tech',
   tagline: [
     'Frontend engineer, twenty years in. React, TypeScript, and Next.js.',
-    'Available for contract and full time work.',
+    'Available for contract work.',
   ],
   intro: [
     "I'm Mike. I got online in 1990 at the age of ten, saved up to buy my own computer two years later, and have been happily ruining my eyesight ever since.",
@@ -37,7 +37,7 @@ export const content: SiteContent = {
   specialties: [
     {
       title: 'Design systems at scale',
-      body: 'Getting a company to adopt one is rarely the problem. By the time I am involved somebody has already decided it is happening. The hard part is what comes after: every team that picks it up brings its own edge cases, and the system has to absorb them without turning into a pile of one-off exceptions.',
+      body: 'A design system is a long build before it is ever a shortcut. Most of the effort goes into things nobody sees: what a component is allowed to know about the app around it, how it versions, how a team extends it without quietly forking it. Get that foundation wrong and no amount of documentation rescues it two years later.',
     },
     {
       title: 'Accessibility',
@@ -55,7 +55,7 @@ export const content: SiteContent = {
     },
     {
       client: 'DML Solutions',
-      body: 'A range of features on a pre-launch consumer streaming app, plus bringing the whole thing up to WCAG 2.2 AA levels of accessibility.',
+      body: 'A range of features on a pre-launch consumer app, plus bringing the whole thing up to WCAG 2.2 AA levels of accessibility.',
     },
     {
       client: 'A medical practice in Los Angeles',
