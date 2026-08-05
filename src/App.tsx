@@ -4,7 +4,7 @@ export default function App() {
   const { contact } = content
 
   return (
-    <main>
+    <main className="page">
       <header>
         <h1>{content.name}</h1>
         <p>{content.dba}</p>
@@ -12,14 +12,18 @@ export default function App() {
       </header>
 
       <section aria-labelledby="services">
-        <h2 id="services">What I do</h2>
+        <h2 id="services" className="spine-heading">
+          What I do
+        </h2>
         {content.services.map((p) => (
           <p key={p}>{p}</p>
         ))}
       </section>
 
       <section aria-labelledby="specialties">
-        <h2 id="specialties">What I specialize in</h2>
+        <h2 id="specialties" className="spine-heading">
+          What I specialize in
+        </h2>
         {content.specialties.map((s) => (
           <div key={s.title}>
             <h3>{s.title}</h3>
@@ -29,7 +33,9 @@ export default function App() {
       </section>
 
       <section aria-labelledby="work">
-        <h2 id="work">Selected client work</h2>
+        <h2 id="work" className="spine-heading">
+          Selected client work
+        </h2>
         {content.work.map((w) => (
           <div key={w.client}>
             <h3>{w.client}</h3>
@@ -39,19 +45,25 @@ export default function App() {
       </section>
 
       <section aria-labelledby="background">
-        <h2 id="background">Background</h2>
+        <h2 id="background" className="spine-heading">
+          Background
+        </h2>
         <p>{content.background}</p>
       </section>
 
       <section aria-labelledby="engagements">
-        <h2 id="engagements">How engagements work</h2>
+        <h2 id="engagements" className="spine-heading">
+          How engagements work
+        </h2>
         {content.engagements.map((p) => (
           <p key={p}>{p}</p>
         ))}
       </section>
 
       <section aria-labelledby="contact">
-        <h2 id="contact">Contact</h2>
+        <h2 id="contact" className="spine-heading">
+          Contact
+        </h2>
         <ul>
           <li>
             <a href={`mailto:${contact.email}`}>{contact.email}</a>
@@ -70,10 +82,10 @@ export default function App() {
         <p>{contact.location}</p>
       </section>
 
-      <hr />
-
       <section aria-labelledby="policies">
-        <h2 id="policies">Policies</h2>
+        <h2 id="policies" className="spine-heading">
+          Policies
+        </h2>
         {content.policies.map((p) => (
           <div key={p.title}>
             <h3>{p.title}</h3>
