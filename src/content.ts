@@ -1,7 +1,7 @@
 export type SiteContent = {
   name: string
   dba: string
-  tagline: string
+  tagline: string[]
   intro: string[]
   whoIWorkWith: string[]
   specialties: { title: string; body: string }[]
@@ -15,8 +15,10 @@ export type SiteContent = {
 export const content: SiteContent = {
   name: 'Michael Fortney',
   dba: 'Grey Matter Tech',
-  tagline:
-    'Frontend engineer, twenty years in. React, TypeScript, and Next.js. Available for contract work.',
+  tagline: [
+    'Frontend engineer, twenty years in. React, TypeScript, and Next.js.',
+    'Available for contract and full time work.',
+  ],
   intro: [
     "I'm Mike. I got online in 1990 at the age of ten, saved up to buy my own computer two years later, and have been happily ruining my eyesight ever since.",
     'At fifteen I did phone support at an ISP, talking people through fixing their janky dial up connections. Then computer sales and repair through the late nineties, and an in-home IT company in my early twenties, all before software became the job. No degree. I learned every bit of it the way you learn anything worth knowing: by building something, breaking it spectacularly, and refusing to go to bed until it worked.',
@@ -35,7 +37,7 @@ export const content: SiteContent = {
   specialties: [
     {
       title: 'Design systems at scale',
-      body: 'Adoption is rarely the hard part, because the company has usually already decided to go that way. The hard part is adapting the system to how each team actually works once they are building with it.',
+      body: 'Getting a company to adopt one is rarely the problem. By the time I am involved somebody has already decided it is happening. The hard part is what comes after: every team that picks it up brings its own edge cases, and the system has to absorb them without turning into a pile of one-off exceptions.',
     },
     {
       title: 'Accessibility',
@@ -49,11 +51,11 @@ export const content: SiteContent = {
   work: [
     {
       client: 'Wild Tree Bee Company',
-      body: 'Product bundles, product page and cart upsells, and a spend-threshold free-gift ladder for their Shopify store. Also rebuilt the store navigation and built custom collection landing pages.',
+      body: 'Product bundles, product page and cart upsells, and a spend-threshold free-gift ladder for their Shopify store. Also rebuilt the store navigation, built custom collection landing pages, and added a find-a-store page for people who would rather buy in person.',
     },
     {
       client: 'DML Solutions',
-      body: 'A range of features on a pre-launch consumer app, plus the accessibility work across the whole thing to WCAG 2.2 AA.',
+      body: 'A range of features on a pre-launch consumer streaming app, plus bringing the whole thing up to WCAG 2.2 AA levels of accessibility.',
     },
     {
       client: 'A medical practice in Los Angeles',
@@ -69,7 +71,7 @@ export const content: SiteContent = {
     'Rates depend on scope, length, and whether you are an agency reselling me or a client hiring me directly. Ask and I will send them the same day.',
   ],
   contact: {
-    email: 'contact@michaelfortney.com',
+    email: 'mike@michaelfortney.com',
     calendly: 'https://calendly.com/mike-fortney/30min',
     linkedin: 'https://www.linkedin.com/in/michaelfortney/',
     location: 'Temecula, California, United States',

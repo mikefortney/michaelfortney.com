@@ -13,8 +13,8 @@ describe('Stripe website checklist', () => {
   })
 
   it('offers at least two direct contact methods', () => {
-    const mailto = screen.getByRole('link', { name: /contact@michaelfortney\.com/i })
-    expect(mailto).toHaveAttribute('href', 'mailto:contact@michaelfortney.com')
+    const mailto = screen.getByRole('link', { name: /mike@michaelfortney\.com/i })
+    expect(mailto).toHaveAttribute('href', 'mailto:mike@michaelfortney.com')
     const calendly = screen.getByRole('link', { name: /book a call/i })
     expect(calendly).toHaveAttribute('href', 'https://calendly.com/mike-fortney/30min')
   })

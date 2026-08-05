@@ -43,7 +43,7 @@ describe('production build output', () => {
   it('includes required contact and business copy in the shipped bundle', () => {
     const bundle = readBundleSource()
     for (const required of [
-      'contact@michaelfortney.com',
+      'mike@michaelfortney.com',
       'calendly.com/mike-fortney/30min',
       'US dollars (USD)',
       'Temecula, California',

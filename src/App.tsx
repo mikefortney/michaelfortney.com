@@ -81,7 +81,14 @@ export default function App() {
         <div className="header-name">
           <h1>{content.name}</h1>
           <p>{content.dba}</p>
-          <p>{content.tagline}</p>
+          <p>
+            {content.tagline.map((line, i) => (
+              <span key={line}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
+          </p>
         </div>
         <ThemeToggle />
       </header>
@@ -105,9 +112,8 @@ export default function App() {
 
       <section aria-labelledby="specialties">
         <h2 id="specialties" className="spine-heading">
-          What I am actually good at
+          What I am especially good at
         </h2>
-        <p>Three things, and I would rather be honest about the list being short.</p>
         {content.specialties.map((s) => (
           <div key={s.title}>
             <h3>{s.title}</h3>
