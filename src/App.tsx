@@ -124,7 +124,7 @@ export default function App() {
 
       <section aria-labelledby="work">
         <h2 id="work" className="spine-heading">
-          Some things I have built
+          Some things I have built recently
         </h2>
         {content.work.map((w) => (
           <div key={w.client}>
