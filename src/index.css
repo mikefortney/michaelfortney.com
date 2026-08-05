@@ -1,19 +1,62 @@
+@font-face {
+  font-family: 'Public Sans Variable';
+  src:
+    url('/fonts/public-sans-var.woff2') format('woff2-variations'),
+    url('/fonts/public-sans-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light dark;
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --muted: #5a5a5a;
-  --rule: #d8d8d8;
-  --link: #1a4fd6;
+  --paper: #f3f5f7;
+  --ink: #101419;
+  --muted: #4a545f;
+  --rule: #cfd8e0;
+  --accent: #10554a;
+
+  --spine-x: 0.85rem;
+  --tick-w: 0.7rem;
+  --gutter: calc(var(--spine-x) + var(--tick-w));
+  --measure: 38rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #14161a;
-    --fg: #e8e8e8;
-    --muted: #a2a2a2;
-    --rule: #2e3238;
-    --link: #8ab0ff;
+    --paper: #0e1216;
+    --ink: #e6ebf0;
+    --muted: #9aa7b4;
+    --rule: #232b33;
+    --accent: #4fbfa8;
+  }
+}
+
+/* An explicit user choice, stamped on <html> by the inline head script (to
+   avoid a flash) and by the theme toggle, always wins over prefers-color-scheme,
+   in both directions. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #0e1216;
+  --ink: #e6ebf0;
+  --muted: #9aa7b4;
+  --rule: #232b33;
+  --accent: #4fbfa8;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --paper: #f3f5f7;
+  --ink: #101419;
+  --muted: #4a545f;
+  --rule: #cfd8e0;
+  --accent: #10554a;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --spine-x: 1.5rem;
+    --tick-w: 1rem;
   }
 }
 
@@ -23,68 +66,212 @@
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+  font-weight: 400;
   font-size: 1.0625rem;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-main {
-  max-width: 42rem;
+/* The spine: one continuous rule from the name to the last policy,
+   with a deliberate terminator instead of a fade. The container width is
+   derived from the measure plus the gutter/padding either side of it, so
+   text fills its column edge to edge and any leftover space is pushed
+   outside as a symmetric, centred margin rather than an internal slack
+   on the right. */
+.page {
+  position: relative;
+  max-width: calc(var(--measure) + var(--gutter) + 1.25rem);
   margin: 0 auto;
-  padding: 3rem 1.25rem 5rem;
+  padding: 3rem 1.25rem 4rem var(--gutter);
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --measure: 42rem;
+  }
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0.15em;
+  left: var(--spine-x);
+  bottom: 0.6rem;
+  width: 2px;
+  background: var(--rule);
+}
+
+.page::after {
+  content: '';
+  position: absolute;
+  left: var(--spine-x);
+  bottom: 0;
+  width: 9px;
+  height: 9px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--accent);
+}
+
+/* Section headings and the name attach to the spine with a short tick. */
+.page > header h1,
+.spine-heading {
+  position: relative;
+}
+
+.page > header h1::before,
+.spine-heading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--tick-w));
+  width: var(--tick-w);
+  height: 2px;
+  background: var(--rule);
+}
+
+header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+header .header-name {
+  min-width: 0;
 }
 
 h1 {
-  font-size: 2.25rem;
+  font-size: 2rem;
+  font-weight: 700;
   line-height: 1.15;
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 header p:first-of-type {
   color: var(--muted);
+  font-weight: 500;
   font-size: 0.9375rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin: 0.25rem 0 1.5rem;
+  margin: 0.4rem 0 1.5rem;
+}
+
+/* Theme toggle: a small, quiet utility control, not a feature. It sits in
+   the header row so it reads as part of the spine system rather than
+   floating free, and it inherits the same designed focus ring as every
+   other interactive element on the page. */
+.theme-toggle {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.2rem;
+  padding: 0;
+  border: 1px solid var(--muted);
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .theme-toggle {
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+}
+
+section {
+  margin-top: 3.25rem;
+}
+
+.intro {
+  margin-top: 2.5rem;
 }
 
 h2 {
-  font-size: 1.375rem;
-  margin: 3rem 0 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
 }
 
 h3 {
   font-size: 1.0625rem;
+  font-weight: 600;
   margin: 1.75rem 0 0.25rem;
+}
+
+section > div:first-of-type h3 {
+  margin-top: 0;
 }
 
 p {
   margin: 0 0 1rem;
 }
 
-a {
-  color: var(--link);
+/* The hero: the first line of "what I do", promoted to display size.
+   Deliberately moderate, not a full first-viewport banner, and it stays
+   inside the normal content column so it still hangs off the spine like
+   everything else instead of floating above it. */
+.hero {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
 }
 
-a:focus-visible {
-  outline: 2px solid var(--link);
-  outline-offset: 2px;
+a {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.15em;
+  border-radius: 3px;
+}
+
+a:focus-visible,
+:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--paper),
+    0 0 0 4.5px var(--accent);
 }
 
 ul {
-  padding-left: 1.125rem;
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1rem;
 }
 
-hr {
-  border: 0;
-  border-top: 1px solid var(--rule);
-  margin: 4rem 0 0;
+ul li {
+  margin-bottom: 0.4rem;
 }
 
-section[aria-labelledby="policies"] p {
+.page > section[aria-labelledby='policies'] p {
   color: var(--muted);
   font-size: 0.9375rem;
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.65rem;
+  }
 }
