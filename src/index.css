@@ -84,7 +84,6 @@ hr {
   margin: 4rem 0 0;
 }
 
-#policies ~ div p,
 section[aria-labelledby="policies"] p {
   color: var(--muted);
   font-size: 0.9375rem;

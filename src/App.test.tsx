@@ -52,7 +52,7 @@ describe('claim rules from spec section 5', () => {
     '17%',
     'acquired',
   ])('never mentions %s', (forbidden) => {
-    expect(allCopy()).not.toContain(forbidden)
+    expect(allCopy().toLowerCase()).not.toContain(forbidden.toLowerCase())
   })
 })
 

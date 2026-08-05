@@ -20,6 +20,7 @@ export const content: SiteContent = {
     'I design and build frontend applications. New ones, and the ones that already exist.',
     'New builds are the straightforward half. I take a site or an application from nothing to live, make the architectural calls early enough that they do not become expensive later, and hand over something a team can actually maintain.',
     'The other half is the part most contractors would rather not take. I can drop into a large production codebase somebody else wrote, work out how it actually behaves, and ship changes without breaking the things people already depend on. Twenty years in, that is what I am best at, and it is considerably harder to hire for than the first half.',
+    'Engagements usually take one of three shapes. Ongoing capacity for a team that is short a senior person. A defined project with a fixed scope and price, such as an accessibility audit. Or subcontracted work under an agency\'s brand, where I stay in the background and your client never hears my name unless you want them to.',
     'I work remotely in US Pacific hours, with agencies and product teams anywhere in the United States.',
   ],
   specialties: [
