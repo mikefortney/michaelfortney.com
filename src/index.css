@@ -14,11 +14,12 @@
   --ink: #101419;
   --muted: #4a545f;
   --rule: #cfd8e0;
-  --accent: #0b4fd0;
+  --accent: #10554a;
 
   --spine-x: 0.85rem;
   --tick-w: 0.7rem;
   --gutter: calc(var(--spine-x) + var(--tick-w));
+  --measure: 38rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,8 +28,29 @@
     --ink: #e6ebf0;
     --muted: #9aa7b4;
     --rule: #232b33;
-    --accent: #6fa0ff;
+    --accent: #4fbfa8;
   }
+}
+
+/* An explicit user choice, stamped on <html> by the inline head script (to
+   avoid a flash) and by the theme toggle, always wins over prefers-color-scheme,
+   in both directions. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #0e1216;
+  --ink: #e6ebf0;
+  --muted: #9aa7b4;
+  --rule: #232b33;
+  --accent: #4fbfa8;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --paper: #f3f5f7;
+  --ink: #101419;
+  --muted: #4a545f;
+  --rule: #cfd8e0;
+  --accent: #10554a;
 }
 
 @media (min-width: 640px) {
@@ -55,12 +77,22 @@ body {
 }
 
 /* The spine: one continuous rule from the name to the last policy,
-   with a deliberate terminator instead of a fade. */
+   with a deliberate terminator instead of a fade. The container width is
+   derived from the measure plus the gutter/padding either side of it, so
+   text fills its column edge to edge and any leftover space is pushed
+   outside as a symmetric, centred margin rather than an internal slack
+   on the right. */
 .page {
   position: relative;
-  max-width: 46rem;
+  max-width: calc(var(--measure) + var(--gutter) + 1.25rem);
   margin: 0 auto;
   padding: 3rem 1.25rem 4rem var(--gutter);
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --measure: 42rem;
+  }
 }
 
 .page::before {
@@ -101,6 +133,17 @@ body {
   background: var(--rule);
 }
 
+header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+header .header-name {
+  min-width: 0;
+}
+
 h1 {
   font-size: 2rem;
   font-weight: 700;
@@ -118,8 +161,37 @@ header p:first-of-type {
   margin: 0.4rem 0 1.5rem;
 }
 
-header p:last-of-type {
-  max-width: 34rem;
+/* Theme toggle: a small, quiet utility control, not a feature. It sits in
+   the header row so it reads as part of the spine system rather than
+   floating free, and it inherits the same designed focus ring as every
+   other interactive element on the page. */
+.theme-toggle {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.2rem;
+  padding: 0;
+  border: 1px solid var(--muted);
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .theme-toggle {
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
 }
 
 section {
@@ -148,7 +220,19 @@ section > div:first-of-type h3 {
 
 p {
   margin: 0 0 1rem;
-  max-width: 34rem;
+}
+
+/* The hero: the first line of "what I do", promoted to display size.
+   Deliberately moderate, not a full first-viewport banner, and it stays
+   inside the normal content column so it still hangs off the spine like
+   everything else instead of floating above it. */
+.hero {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
 }
 
 a {
@@ -180,7 +264,6 @@ ul li {
 .page > section[aria-labelledby='policies'] p {
   color: var(--muted);
   font-size: 0.9375rem;
-  max-width: 34rem;
 }
 
 @media (max-width: 400px) {
