@@ -37,7 +37,7 @@ export const content: SiteContent = {
   specialties: [
     {
       title: 'Design systems at scale',
-      body: 'A design system is a long build before it is ever a shortcut. Most of the effort goes into things nobody sees: what a component is allowed to know about the app around it, how it versions, how a team extends it without quietly forking it. Get that foundation wrong and no amount of documentation rescues it two years later.',
+      body: 'I have built these from nothing and I have been dropped into ones that were already wobbling. Either way the interesting work is the same. What is a component allowed to know. How does it version. What happens the first time a team needs it to do something it was never designed for. Get those right early and the thing lasts. Get them wrong and you find out two years later.',
     },
     {
       title: 'Accessibility',
