@@ -43,17 +43,18 @@ describe('claim rules from spec section 5', () => {
     expect(document.body.textContent?.length ?? 0).toBeGreaterThan(1000)
   })
 
-  it.each([
-    'Wild Tree',
-    'LA Neurosciences',
-    'DogVacay',
-    'OneLogin',
-    'Inspired',
-    '17%',
-    'acquired',
-  ])('never mentions %s', (forbidden) => {
-    expect(allCopy().toLowerCase()).not.toContain(forbidden.toLowerCase())
-  })
+  // LA Neurosciences stays unnamed until that client approves being named.
+  // DogVacay and OneLogin must never appear here at all, both were acquired
+  // years after the owner left and naming them would misrepresent his tenure.
+  // 17% is withheld until a timeframe for that figure is confirmed.
+  // "acquired" is blocked as a catch-all so an acquisition claim cannot sneak
+  // in under different wording.
+  it.each(['LA Neurosciences', 'DogVacay', 'OneLogin', '17%', 'acquired'])(
+    'never mentions %s',
+    (forbidden) => {
+      expect(allCopy().toLowerCase()).not.toContain(forbidden.toLowerCase())
+    },
+  )
 })
 
 describe('voice rules', () => {

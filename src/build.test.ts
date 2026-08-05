@@ -57,7 +57,11 @@ describe('production build output', () => {
     const bundle = readBundleSource()
     const combined = html + bundle
 
-    for (const forbidden of ['Wild Tree', 'LA Neurosciences', 'DogVacay', 'OneLogin', '17%']) {
+    // LA Neurosciences stays unnamed until that client approves being named.
+    // DogVacay and OneLogin must never appear here at all, both were acquired
+    // years after the owner left and naming them would misrepresent his tenure.
+    // 17% is withheld until a timeframe for that figure is confirmed.
+    for (const forbidden of ['LA Neurosciences', 'DogVacay', 'OneLogin', '17%']) {
       expect(combined).not.toContain(forbidden)
     }
   }, 120_000)

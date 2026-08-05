@@ -26,7 +26,7 @@ export const content: SiteContent = {
   specialties: [
     {
       title: 'Design systems at scale',
-      body: 'The hard part is not building components. It is getting many teams to adopt them and stay consistent once you are not in the room.',
+      body: 'Adoption is rarely the hard part, because the company has usually already decided to move that way. The hard part is adapting the system to how each team actually works once they are building with it.',
     },
     {
       title: 'Accessibility compliance',
@@ -39,20 +39,20 @@ export const content: SiteContent = {
   ],
   work: [
     {
-      client: 'A Shopify honey and gift brand',
-      body: 'Built a product bundle, product page and cart upsells, and a spend-threshold free-gift ladder. Also rebuilt the store navigation and built custom collection landing pages.',
+      client: 'Wild Tree Bee Company',
+      body: 'Built a product bundle, product page and cart upsells, and a spend-threshold free-gift ladder for their Shopify store. Also rebuilt the store navigation and built custom collection landing pages.',
     },
     {
       client: 'DML Solutions',
-      body: 'Frontend product work on a pre-launch consumer app.',
+      body: 'Built out a range of features on a pre-launch consumer app, and did the accessibility work across the application to WCAG 2.2 AA.',
     },
     {
       client: 'A medical practice in Los Angeles',
-      body: 'Designed and built a Next.js and Sanity site, including the accessibility work.',
+      body: 'Designed and built a Next.js and Sanity (CMS) site, including the accessibility work.',
     },
   ],
   background:
-    'Twenty years in frontend. Eight of them at Cornerstone OnDemand, rebuilding a legacy ASP.NET platform into React while it stayed live for customers, and building the component library that more than ten teams adopted. After that I led frontend at a Shopify SaaS company.',
+    'Twenty years in frontend. Most recently three and a half years leading frontend at Inspired, a Shopify SaaS company. Before that, eight years at Cornerstone OnDemand, rebuilding a legacy ASP.NET platform into React while it stayed live for customers, and building the component library that more than ten teams adopted.',
   engagements: [
     'Work is quoted hourly, weekly, or at a fixed price for defined projects such as accessibility audits. All work is quoted and invoiced in US dollars (USD).',
     'Invoices are issued through Stripe and are payable by ACH bank transfer or card.',
