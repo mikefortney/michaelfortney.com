@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process'
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -8,7 +8,12 @@ const root = join(here, '..')
 const distDir = join(root, 'dist')
 
 function ensureBuild() {
-  if (existsSync(join(distDir, 'index.html'))) return
+  if (
+    existsSync(join(distDir, 'index.html')) &&
+    existsSync(join(distDir, 'work', 'la-neurosciences', 'index.html'))
+  ) {
+    return
+  }
   // vitest sets NODE_ENV=test; inheriting that here makes Vite bundle
   // react-dom's development build (whose warning strings contain an em
   // dash) during the SSR render step, so force production explicitly.
@@ -21,6 +26,10 @@ function ensureBuild() {
 
 function readHtml(): string {
   return readFileSync(join(distDir, 'index.html'), 'utf-8')
+}
+
+function readCaseStudyHtml(): string {
+  return readFileSync(join(distDir, 'work', 'la-neurosciences', 'index.html'), 'utf-8')
 }
 
 function jsFilesInDist(): string[] {
@@ -83,4 +92,69 @@ describe('production build output', () => {
     expect(html).toMatch(/<link rel="stylesheet" href="\/assets\/[^"]+\.css" \/>/)
     expect(html).toMatch(/href="\/fonts\/public-sans-var\.woff2"/)
   }, 120_000)
+})
+
+describe('case study page output', () => {
+  beforeAll(() => {
+    ensureBuild()
+  }, 120_000)
+
+  it('is written to its own nested path', () => {
+    expect(existsSync(join(distDir, 'work', 'la-neurosciences', 'index.html'))).toBe(true)
+  }, 120_000)
+
+  it('carries its own title, description and canonical', () => {
+    const html = readCaseStudyHtml()
+    expect(html).toContain('<title>Los Angeles Neurosciences | Michael Fortney</title>')
+    expect(html).toContain(
+      '<link rel="canonical" href="https://www.michaelfortney.com/work/la-neurosciences" />',
+    )
+
+    const home = readHtml()
+    const titleOf = (s: string) => s.match(/<title>([^<]*)<\/title>/)?.[1]
+    const descOf = (s: string) => s.match(/name="description" content="([^"]*)"/)?.[1]
+    expect(titleOf(html)).not.toEqual(titleOf(home))
+    expect(descOf(html)).not.toEqual(descOf(home))
+  }, 120_000)
+
+  it('ships the case study copy in the HTML', () => {
+    expect(readCaseStudyHtml()).toContain(
+      'Dr. Kurian runs a neurology practice in Santa Clarita.',
+    )
+  }, 120_000)
+
+  it('ships no application JavaScript on this page either', () => {
+    const html = readCaseStudyHtml()
+    const scriptTags = html.match(/<script\b/g) ?? []
+    expect(scriptTags).toHaveLength(1)
+    expect(jsFilesInDist()).toEqual([])
+  }, 120_000)
+
+  it('never ships an em dash', () => {
+    expect(readCaseStudyHtml()).not.toContain('—')
+  }, 120_000)
+
+  it('never ships forbidden strings either', () => {
+    const html = readCaseStudyHtml().toLowerCase()
+    for (const forbidden of ['DogVacay', 'OneLogin', '17%', 'designed and built']) {
+      expect(html).not.toContain(forbidden.toLowerCase())
+    }
+  }, 120_000)
+
+  it('links back to the homepage', () => {
+    expect(readCaseStudyHtml()).toContain('href="/"')
+  }, 120_000)
+
+  it.each(['la-neurosciences-before.jpg', 'la-neurosciences-after.jpg'])(
+    'ships %s, and keeps it small',
+    (name) => {
+      const img = join(distDir, name)
+      expect(existsSync(img)).toBe(true)
+      // The before shot is 142KB as built. 200KB is the ceiling: this site's
+      // whole point is that it is light, so an unoptimised screenshot would
+      // undercut the thing it demonstrates.
+      expect(statSync(img).size).toBeLessThan(200 * 1024)
+    },
+    120_000,
+  )
 })
