@@ -37,7 +37,7 @@ export const caseStudy: CaseStudy = {
     {
       title: 'What shipped',
       body: [
-        'The site runs on Next.js with Sanity behind it, and it is 28 pages now: seven service pages covering what he actually treats, a clinical blog, and the usual practice pages for contact, reviews, clinical trials and medical-legal work.',
+        'The site runs on Next.js with Sanity CMS behind it, and it is 28 pages now: seven service pages covering what he actually treats, a clinical blog, and the usual practice pages for contact, reviews, clinical trials and medical-legal work.',
         "The eight posts he already had came across from Squarespace through a migration script that converted them into Sanity's content format, with the generated slugs cleaned up and a redirect from every old URL to its new home. That part mattered more than it sounds, because he was ranking and I wasn't going to spend that on a rebuild. His staff can edit any of it without calling me.",
       ],
     },
@@ -51,7 +51,7 @@ export const caseStudy: CaseStudy = {
     {
       title: 'Getting the editor right',
       body: [
-        "The client wanted to edit his own pages the way Squarespace had let him, and that turned out to be the hardest part of the build. Rather than guess at it, I researched what was actually out there: React Bricks, Payload, Puck, and Sanity's own Presentation tool.",
+        "The client wanted to edit his own pages the way Squarespace had let him, and that was the hardest part to get right. Rather than guess at it, I researched what was actually out there: React Bricks, Payload, Puck, and Sanity's own Presentation tool.",
         "Puck embedded in Sanity looked strongest on paper, so I built working spikes rather than trusting the documentation. They told me what the docs couldn't. It worked, but it wasn't going to give him an editing experience I'd be proud of, so I changed tracks and built on Sanity Presentation instead, then reorganized the content model so the editing surface matched the way he actually thinks about his pages.",
         "Prototyping is cheap and being wrong in production isn't, so I'd rather find that out in a spike than after launch.",
       ],
