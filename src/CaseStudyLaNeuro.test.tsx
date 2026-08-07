@@ -68,14 +68,7 @@ describe('LA Neurosciences case study', () => {
   )
 
   it('says plainly that the designs came from the client', () => {
-    expect(document.body.textContent).toMatch(/comps came from the client/i)
-  })
-
-  // The project has no CI. Asserting the honest sentence is present is a
-  // stronger test than banning a phrase that would never appear anyway.
-  it('states outright that there is no CI and the gate is local', () => {
-    expect(document.body.textContent).toMatch(/no CI on this project/i)
-    expect(document.body.textContent).toMatch(/before every deploy/i)
+    expect(document.body.textContent).toMatch(/design came from the client/i)
   })
 
   it.each([

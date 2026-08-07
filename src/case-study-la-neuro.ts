@@ -46,18 +46,17 @@ export const caseStudy: CaseStudy = {
       body: [
         'The site is WCAG 2.2 AA, and the part I care about more is that it stays that way. Axe runs against nine routes chosen to cover every distinct section type and interactive widget on the site, the form, the accordion, the carousel, a service page, a blog post, and it has to come back with zero violations.',
         "I went through the awkward parts with VoiceOver by hand as well, because an automated tool won't tell you that a heading is announcing itself as \"2 items\" to a screen reader user.",
-        "There is no CI on this project, so that gate is a step I run locally before every deploy rather than something a server enforces for me. It is discipline rather than infrastructure, and it is worth saying out loud instead of implying otherwise.",
       ],
     },
     {
-      title: 'The editor took two passes',
+      title: 'Getting the editor right',
       body: [
-        "The client wanted Squarespace-style visual editing, which is a reasonable thing to want after years of having it. Sanity's own presentation tool was too clunky to hand him, so I looked at the alternatives properly: Payload paired with Puck, Webstudio, Sanity Canvas, and a separate authenticated editing route.",
-        "Payload would have meant self-hosting, and that breaks the zero-backend setup his security consultant had already signed off on, so it lost on that rather than on features. Webstudio gives you full CSS, which is harder to put guardrails around. Sanity Canvas turned out to be an AI writing tool rather than a page builder. Puck embedded inside the Sanity Studio won because nothing new had to be hosted or secured, and I built two throwaway spikes to prove it worked before committing to it.",
-        "Then I built too much of it. A few weeks in I audited the roughly 3,600 lines of custom editor code I had written, and 400 to 600 of them were fighting the tool rather than using it. That layer was generating most of the recurring bugs, and it sat on top of fields that already worked, so removing it would have cost no functionality at all. I did not rewrite it and I did not rip it out. I stopped expanding it and let new work default to the way the tool wants to be used.",
+        "The client wanted to edit his own pages the way Squarespace had let him, and that turned out to be the hardest part of the build. Rather than guess at it, I researched what was actually out there: React Bricks, Payload, Puck, and Sanity's own Presentation tool.",
+        "Puck embedded in Sanity looked strongest on paper, so I built working spikes rather than trusting the documentation. They told me what the docs couldn't. It worked, but it wasn't going to give him an editing experience I'd be proud of, so I changed tracks and built on Sanity Presentation instead, then reorganized the content model so the editing surface matched the way he actually thinks about his pages.",
+        "Prototyping is cheap and being wrong in production isn't, so I'd rather find that out in a spike than after launch.",
       ],
     },
   ],
   closing:
-    'The comps came from the client, so none of the visual design is mine. My job was to build them properly, keep what was already working, and leave him something his staff can run without me. That is most of what agency work actually is.',
+    'The design came from the client and my job was to implement it exactly, which is most of what agency work actually is. The rest was keeping what already ranked, building out what had never been there, and leaving him a site his staff can run without me.',
 }
