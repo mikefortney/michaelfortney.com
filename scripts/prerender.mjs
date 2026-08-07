@@ -5,7 +5,7 @@
 // in this pipeline.
 import { build } from 'vite'
 import react from '@vitejs/plugin-react'
-import { readdirSync, writeFileSync, rmSync, existsSync } from 'node:fs'
+import { readdirSync, writeFileSync, rmSync, existsSync, mkdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -14,7 +14,7 @@ const root = join(here, '..')
 const distDir = join(root, 'dist')
 const ssrOutDir = join(root, 'dist-ssr')
 
-async function renderAppMarkup() {
+async function renderPages() {
   await build({
     root,
     plugins: [react()],
@@ -34,8 +34,8 @@ async function renderAppMarkup() {
   })
 
   const modulePath = join(ssrOutDir, 'entry-server.mjs')
-  const { render } = await import(pathToFileURL(modulePath).href)
-  return render()
+  const { renderAll } = await import(pathToFileURL(modulePath).href)
+  return renderAll()
 }
 
 function findCssHref() {
@@ -55,18 +55,15 @@ function assertNoJsAssets() {
   }
 }
 
-function writeHtml(markup, cssHref) {
+function writeHtml(page, cssHref) {
   const html = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Michael Fortney | Senior Frontend Engineer, Contract</title>
-    <meta
-      name="description"
-      content="Senior frontend engineer available for contract work. React, TypeScript, and Next.js. Design systems, accessibility compliance, and safe delivery in live production systems."
-    />
-    <link rel="canonical" href="https://www.michaelfortney.com/" />
+    <title>${page.title}</title>
+    <meta name="description" content="${page.description}" />
+    <link rel="canonical" href="${page.canonical}" />
     <link
       rel="preload"
       href="/fonts/public-sans-var.woff2"
@@ -77,12 +74,14 @@ function writeHtml(markup, cssHref) {
     <link rel="stylesheet" href="${cssHref}" />
   </head>
   <body>
-    ${markup}
+    ${page.markup}
     <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>
 `
-  writeFileSync(join(distDir, 'index.html'), html)
+  const outPath = join(distDir, page.outFile)
+  mkdirSync(dirname(outPath), { recursive: true })
+  writeFileSync(outPath, html)
 }
 
 async function main() {
@@ -91,8 +90,9 @@ async function main() {
   }
   assertNoJsAssets()
   const cssHref = findCssHref()
-  const markup = await renderAppMarkup()
-  writeHtml(markup, cssHref)
+  for (const page of await renderPages()) {
+    writeHtml(page, cssHref)
+  }
   rmSync(ssrOutDir, { recursive: true, force: true })
 }
 

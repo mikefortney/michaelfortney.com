@@ -1,6 +1,17 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import App from './App.tsx'
+import { pages } from './pages'
 
-export function render(): string {
-  return renderToStaticMarkup(<App />)
+export type RenderedPage = {
+  outFile: string
+  title: string
+  description: string
+  canonical: string
+  markup: string
+}
+
+export function renderAll(): RenderedPage[] {
+  return pages.map(({ Component, ...meta }) => ({
+    ...meta,
+    markup: renderToStaticMarkup(<Component />),
+  }))
 }
