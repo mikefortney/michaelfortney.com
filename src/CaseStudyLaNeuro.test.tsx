@@ -57,9 +57,11 @@ describe('LA Neurosciences case study', () => {
     expect(allCopy()).not.toContain('%')
   })
 
-  // The client supplied the comps, so no design credit. Checking the exact
-  // claim words rather than the substring "design", since the page
-  // legitimately says "none of the visual design is mine".
+  // The client supplied the designs, so the page must never claim design
+  // credit. This checks exact claim phrases rather than the bare substring
+  // "design", because the page legitimately uses that word to say where the
+  // design came from ("The design came from the client"). Banning the
+  // substring would fail on the very sentence that keeps the page honest.
   it.each(['designed and built', 'i designed', 'my design', 'designed by me'])(
     'never claims %s',
     (forbidden) => {
