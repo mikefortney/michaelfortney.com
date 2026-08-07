@@ -1,8 +1,9 @@
-// Builds the SSR entry with Vite, renders App to static markup, and writes
-// the final dist/index.html. This runs after the client `vite build` step
-// (see package.json), which has already produced the hashed CSS and copied
-// the fonts into dist/. No application JavaScript is emitted at any point
-// in this pipeline.
+// Builds the SSR entry with Vite, renders every page in src/pages.tsx to
+// static markup, and writes one HTML file per page into dist/. This runs
+// after the client `vite build` step (see package.json), which has already
+// produced the hashed CSS and copied the fonts and public/ assets into
+// dist/. No application JavaScript is emitted at any point in this pipeline,
+// and assertNoJsAssets() fails the build if any appears.
 import { build } from 'vite'
 import react from '@vitejs/plugin-react'
 import { readdirSync, writeFileSync, rmSync, existsSync, mkdirSync } from 'node:fs'

@@ -2,6 +2,7 @@ export type CaseStudy = {
   client: string
   title: string
   liveUrl: string
+  images: { src: string; alt: string; caption: string; width: number; height: number }[]
   opening: string[]
   sections: { title: string; body: string[] }[]
   closing: string
@@ -11,6 +12,22 @@ export const caseStudy: CaseStudy = {
   client: 'Los Angeles Neurosciences',
   title: 'A neurology practice that needed more site than Squarespace could give it',
   liveUrl: 'https://laneurosciences.com',
+  images: [
+    {
+      src: '/la-neurosciences-before.jpg',
+      alt: 'The previous Los Angeles Neurosciences site, a Squarespace page with a blue hero reading Neurology with Purpose, and a nav of Blog, FAQ, About, Reviews, Contact and Patient Portal.',
+      caption: 'The practice site before the rebuild.',
+      width: 1200,
+      height: 958,
+    },
+    {
+      src: '/la-neurosciences-after.jpg',
+      alt: 'The rebuilt Los Angeles Neurosciences site, with a hero reading Expert Neurology Care for Every Stage of Life that names migraines, epilepsy, stroke, Parkinsons and dementia, above a strip of practice statistics.',
+      caption: 'The same practice after the rebuild.',
+      width: 1200,
+      height: 958,
+    },
+  ],
   opening: [
     'Dr. Kurian runs a neurology practice in Santa Clarita. His site was built and hosted on Squarespace. It looked dated, it did not cover everything he treats, and there was not much SEO work underneath it. No service-specific pages, no local content, none of the structured data that tells a search engine what a medical practice actually is.',
     "He was already ranking well, mostly because there isn't much neurology competition in Santa Clarita. That's worth saying because I wasn't fixing something broken, I was making sure I didn't break it while building out everything that had never been there.",

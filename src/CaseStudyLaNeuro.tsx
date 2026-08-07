@@ -29,6 +29,19 @@ export default function CaseStudyLaNeuro() {
         ))}
       </div>
 
+      {caseStudy.images.map((img) => (
+        <figure key={img.src}>
+          <img
+            src={img.src}
+            alt={img.alt}
+            width={img.width}
+            height={img.height}
+            loading="lazy"
+          />
+          <figcaption>{img.caption}</figcaption>
+        </figure>
+      ))}
+
       {caseStudy.sections.map((s) => (
         <section key={s.title} aria-labelledby={slug(s.title)}>
           <h2 id={slug(s.title)} className="spine-heading">

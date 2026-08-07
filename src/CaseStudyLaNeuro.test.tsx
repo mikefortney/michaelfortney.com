@@ -77,4 +77,29 @@ describe('LA Neurosciences case study', () => {
     expect(document.body.textContent).toMatch(/no CI on this project/i)
     expect(document.body.textContent).toMatch(/before every deploy/i)
   })
+
+  it.each([
+    ['before', /previous Los Angeles Neurosciences site/i, '/la-neurosciences-before.jpg'],
+    ['after', /rebuilt Los Angeles Neurosciences site/i, '/la-neurosciences-after.jpg'],
+  ])('shows the %s image with dimensions set, to prevent layout shift', (_label, alt, src) => {
+    const img = screen.getByRole('img', { name: alt })
+    expect(img).toHaveAttribute('src', src)
+    expect(img).toHaveAttribute('width', '1200')
+    expect(img).toHaveAttribute('height', '958')
+    expect(img).toHaveAttribute('loading', 'lazy')
+  })
+
+  it('shows only those two images', () => {
+    expect(document.querySelectorAll('img')).toHaveLength(2)
+  })
+
+  it('captions both without criticising the old site', () => {
+    const captions = Array.from(document.querySelectorAll('figcaption')).map(
+      (c) => c.textContent,
+    )
+    expect(captions).toEqual([
+      'The practice site before the rebuild.',
+      'The same practice after the rebuild.',
+    ])
+  })
 })
