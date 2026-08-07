@@ -1,0 +1,80 @@
+import { render, screen } from '@testing-library/react'
+import CaseStudyLaNeuro from './CaseStudyLaNeuro'
+import { caseStudy } from './case-study-la-neuro'
+
+const allCopy = () => JSON.stringify(caseStudy) + document.body.textContent
+
+describe('LA Neurosciences case study', () => {
+  beforeEach(() => render(<CaseStudyLaNeuro />))
+
+  it('has exactly one h1', () => {
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
+  })
+
+  it('gives every section an accessible name', () => {
+    const sections = Array.from(document.querySelectorAll('section'))
+    expect(sections.length).toBeGreaterThan(0)
+    for (const section of sections) {
+      expect(section.getAttribute('aria-labelledby')).toBeTruthy()
+    }
+  })
+
+  it('marks external links so they open predictably', () => {
+    const external = Array.from(document.querySelectorAll('a[href^="https://"]'))
+    expect(external.length).toBeGreaterThan(0)
+    for (const link of external) {
+      expect(link.getAttribute('rel')).toContain('noopener')
+    }
+  })
+
+  it('links back to the homepage', () => {
+    const home = screen.getByRole('link', { name: /Michael Fortney/i })
+    expect(home).toHaveAttribute('href', '/')
+  })
+
+  it('links to the live client site', () => {
+    const live = screen.getByRole('link', { name: /laneurosciences\.com/i })
+    expect(live).toHaveAttribute('href', 'https://laneurosciences.com')
+  })
+
+  it('opens with the approved copy verbatim', () => {
+    expect(document.body.textContent).toContain(
+      'Dr. Kurian runs a neurology practice in Santa Clarita.',
+    )
+    expect(document.body.textContent).toContain(
+      "He never asked for accessibility but I built it in from the start",
+    )
+  })
+
+  it('contains no em dashes', () => {
+    expect(allCopy()).not.toContain('—')
+  })
+
+  // Dr. Kurian's permission covers naming and linking only, not business
+  // results. A percent sign is the sharpest single proxy for a metric claim
+  // sneaking in, and there is no legitimate reason for one on this page.
+  it('quotes no figures, because permission does not cover results', () => {
+    expect(allCopy()).not.toContain('%')
+  })
+
+  // The client supplied the comps, so no design credit. Checking the exact
+  // claim words rather than the substring "design", since the page
+  // legitimately says "none of the visual design is mine".
+  it.each(['designed and built', 'i designed', 'my design', 'designed by me'])(
+    'never claims %s',
+    (forbidden) => {
+      expect(allCopy().toLowerCase()).not.toContain(forbidden.toLowerCase())
+    },
+  )
+
+  it('says plainly that the designs came from the client', () => {
+    expect(document.body.textContent).toMatch(/comps came from the client/i)
+  })
+
+  // The project has no CI. Asserting the honest sentence is present is a
+  // stronger test than banning a phrase that would never appear anyway.
+  it('states outright that there is no CI and the gate is local', () => {
+    expect(document.body.textContent).toMatch(/no CI on this project/i)
+    expect(document.body.textContent).toMatch(/before every deploy/i)
+  })
+})
