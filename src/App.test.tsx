@@ -43,18 +43,28 @@ describe('claim rules from spec section 5', () => {
     expect(document.body.textContent?.length ?? 0).toBeGreaterThan(1000)
   })
 
-  // LA Neurosciences stays unnamed until that client approves being named.
   // DogVacay and OneLogin must never appear here at all, both were acquired
   // years after the owner left and naming them would misrepresent his tenure.
   // 17% is withheld until a timeframe for that figure is confirmed.
   // "acquired" is blocked as a catch-all so an acquisition claim cannot sneak
   // in under different wording.
-  it.each(['LA Neurosciences', 'DogVacay', 'OneLogin', '17%', 'acquired'])(
+  // LA Neurosciences was removed from this list on 2026-08-06: Dr. Tom Kurian
+  // gave written permission to name the practice and link the site.
+  it.each(['DogVacay', 'OneLogin', '17%', 'acquired'])(
     'never mentions %s',
     (forbidden) => {
       expect(allCopy().toLowerCase()).not.toContain(forbidden.toLowerCase())
     },
   )
+
+  it('names Los Angeles Neurosciences and links to its case study', () => {
+    const link = screen.getByRole('link', { name: /Los Angeles Neurosciences/i })
+    expect(link).toHaveAttribute('href', '/work/la-neurosciences')
+  })
+
+  it('does not claim design credit for the medical practice build', () => {
+    expect(allCopy().toLowerCase()).not.toContain('designed and built')
+  })
 })
 
 describe('voice rules', () => {

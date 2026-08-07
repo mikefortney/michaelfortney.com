@@ -56,7 +56,7 @@ describe('production build output', () => {
   it('never ships forbidden strings in the HTML', () => {
     const html = readHtml().toLowerCase()
 
-    for (const forbidden of ['LA Neurosciences', 'DogVacay', 'OneLogin', '17%']) {
+    for (const forbidden of ['DogVacay', 'OneLogin', '17%']) {
       expect(html).not.toContain(forbidden.toLowerCase())
     }
   }, 120_000)

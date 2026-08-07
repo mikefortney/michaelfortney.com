@@ -55,7 +55,7 @@ export default function App() {
         </h2>
         {content.work.map((w) => (
           <div key={w.client}>
-            <h3>{w.client}</h3>
+            <h3>{w.href ? <a href={w.href}>{w.client}</a> : w.client}</h3>
             <p>{w.body}</p>
           </div>
         ))}

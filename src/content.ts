@@ -5,7 +5,7 @@ export type SiteContent = {
   intro: string[]
   whoIWorkWith: string[]
   specialties: { title: string; body: string }[]
-  work: { client: string; body: string }[]
+  work: { client: string; body: string; href?: string }[]
   background: string
   engagements: string[]
   contact: { email: string; calendly: string; linkedin: string; location: string }
@@ -50,16 +50,17 @@ export const content: SiteContent = {
   ],
   work: [
     {
+      client: 'Los Angeles Neurosciences',
+      body: 'Built their site in Next.js and Sanity, with WCAG 2.2 AA accessibility in from the start and an automated gate that keeps it there.',
+      href: '/work/la-neurosciences',
+    },
+    {
       client: 'Wild Tree Bee Company',
       body: 'Product bundles, product page and cart upsells, and a spend-threshold free-gift ladder for their Shopify store. Also rebuilt the store navigation, built custom collection landing pages, and added a find-a-store page for people who would rather buy in person.',
     },
     {
       client: 'DML Solutions',
       body: 'A range of features on a pre-launch consumer app, plus bringing the whole thing up to WCAG 2.2 AA levels of accessibility.',
-    },
-    {
-      client: 'A medical practice in Los Angeles',
-      body: 'Designed and built their site in Next.js and Sanity (CMS), accessibility included.',
     },
   ],
   background:
