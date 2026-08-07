@@ -38,8 +38,9 @@ describe('claim rules from spec section 5', () => {
   beforeEach(() => render(<App />))
 
   it('renders a substantial body, so the forbidden-string checks below are not vacuous', () => {
-    // Current rendered body text is ~3665 characters; 1000 is comfortably above an
-    // empty render and comfortably below that, so this catches a broken/blank page.
+    // Rendered body text is about 4566 characters after the Aug 6 copy cut.
+    // 1000 is comfortably above an empty render and well below that, so this
+    // catches a broken or blank page without gating on copy length.
     expect(document.body.textContent?.length ?? 0).toBeGreaterThan(1000)
   })
 
@@ -72,5 +73,35 @@ describe('voice rules', () => {
 
   it('contains no em dashes', () => {
     expect(allCopy()).not.toContain('—')
+  })
+})
+
+describe('copy length', () => {
+  beforeEach(() => render(<App />))
+
+  // Measures only the five fields this cut controls. The rendered page also
+  // carries policies, background, contact and the tagline, roughly 1600
+  // characters that are deliberately out of scope, so asserting on
+  // document.body.textContent would gate this on copy no edit may touch.
+  const cutFields = () =>
+    [
+      content.intro,
+      content.whoIWorkWith,
+      content.specialties.flatMap((s) => [s.title, s.body]),
+      content.work.flatMap((w) => [w.client, w.body]),
+      content.engagements,
+    ]
+      .flat()
+      .join(' ')
+
+  it('keeps the cut copy under 3200 characters', () => {
+    // 3005 after the Aug 6 cut, down from 3874, which is roughly 500 words.
+    // The ceiling leaves headroom without letting it drift back.
+    expect(cutFields().length).toBeLessThan(3200)
+  })
+
+  it('still says the things the Stripe checklist needs', () => {
+    expect(document.body.textContent).toMatch(/US dollars \(USD\)/)
+    expect(document.body.textContent).toMatch(/Temecula, California/)
   })
 })
