@@ -8,6 +8,9 @@ export type PageDef = {
   title: string
   description: string
   canonical: string
+  /** Whether this page is listed in sitemap.xml. Required so that adding a
+   *  page forces an explicit decision about whether search engines see it. */
+  sitemap: boolean
   Component: () => ReactNode
 }
 
@@ -18,6 +21,7 @@ export const pages: PageDef[] = [
     description:
       'Senior frontend engineer available for contract work. React, TypeScript, and Next.js. Design systems, accessibility compliance, and safe delivery in live production systems.',
     canonical: 'https://michaelfortney.com/',
+    sitemap: true,
     Component: App,
   },
   {
@@ -26,6 +30,7 @@ export const pages: PageDef[] = [
     description:
       'A neurology practice site rebuilt on Next.js and Sanity, with WCAG 2.2 AA accessibility built in from the start and an automated gate that keeps it there.',
     canonical: 'https://michaelfortney.com/work/la-neurosciences',
+    sitemap: true,
     Component: CaseStudyLaNeuro,
   },
 ]

@@ -10,7 +10,8 @@ const distDir = join(root, 'dist')
 function ensureBuild() {
   if (
     existsSync(join(distDir, 'index.html')) &&
-    existsSync(join(distDir, 'work', 'la-neurosciences', 'index.html'))
+    existsSync(join(distDir, 'work', 'la-neurosciences', 'index.html')) &&
+    existsSync(join(distDir, 'sitemap.xml'))
   ) {
     return
   }
@@ -157,4 +158,61 @@ describe('case study page output', () => {
     },
     120_000,
   )
+})
+
+// The URLs this site publishes to search engines. Deliberately spelled out
+// rather than derived from src/pages.tsx: adding a page to the sitemap is a
+// publication decision, so it should take an explicit edit here too.
+const PUBLISHED_URLS = [
+  'https://michaelfortney.com/',
+  'https://michaelfortney.com/work/la-neurosciences',
+]
+
+function canonicalOf(html: string): string | undefined {
+  return html.match(/<link rel="canonical" href="([^"]*)" \/>/)?.[1]
+}
+
+function builtCanonicals(): string[] {
+  const found: string[] = []
+  const walk = (dir: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name)
+      if (entry.isDirectory()) walk(full)
+      else if (entry.name === 'index.html') {
+        const canonical = canonicalOf(readFileSync(full, 'utf-8'))
+        if (canonical) found.push(canonical)
+      }
+    }
+  }
+  walk(distDir)
+  return found
+}
+
+describe('sitemap.xml and robots.txt', () => {
+  beforeAll(ensureBuild, 120_000)
+
+  it('lists exactly the pages we mean to publish', () => {
+    const xml = readFileSync(join(distDir, 'sitemap.xml'), 'utf-8')
+    const locs = [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1])
+    expect(locs).toEqual(PUBLISHED_URLS)
+  }, 120_000)
+
+  it('never lists a URL that has no page built for it', () => {
+    const xml = readFileSync(join(distDir, 'sitemap.xml'), 'utf-8')
+    const locs = [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1])
+    const canonicals = builtCanonicals()
+    for (const loc of locs) {
+      expect(canonicals).toContain(loc)
+    }
+  }, 120_000)
+
+  it('lists only apex URLs, never www', () => {
+    const xml = readFileSync(join(distDir, 'sitemap.xml'), 'utf-8')
+    expect(xml).not.toContain('www.michaelfortney.com')
+  }, 120_000)
+
+  it('points robots.txt at the sitemap', () => {
+    const robots = readFileSync(join(distDir, 'robots.txt'), 'utf-8')
+    expect(robots).toContain('Sitemap: https://michaelfortney.com/sitemap.xml')
+  }, 120_000)
 })

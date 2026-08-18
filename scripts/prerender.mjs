@@ -85,15 +85,34 @@ function writeHtml(page, cssHref) {
   writeFileSync(outPath, html)
 }
 
+// Lists every page that opted in via `sitemap: true` in src/pages.tsx, using
+// the same canonical URL the page's own <link rel="canonical"> carries. No
+// <lastmod>: it would change on every build and make the output
+// non-deterministic, and Google treats it as a hint at best.
+function writeSitemap(renderedPages) {
+  const urls = renderedPages
+    .filter((page) => page.sitemap)
+    .map((page) => `  <url>\n    <loc>${page.canonical}</loc>\n  </url>`)
+    .join('\n')
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`
+  writeFileSync(join(distDir, 'sitemap.xml'), xml)
+}
+
 async function main() {
   if (!existsSync(distDir)) {
     throw new Error('dist/ does not exist. Run the client vite build first.')
   }
   assertNoJsAssets()
   const cssHref = findCssHref()
-  for (const page of await renderPages()) {
+  const renderedPages = await renderPages()
+  for (const page of renderedPages) {
     writeHtml(page, cssHref)
   }
+  writeSitemap(renderedPages)
   rmSync(ssrOutDir, { recursive: true, force: true })
 }
 

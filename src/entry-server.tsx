@@ -6,6 +6,7 @@ export type RenderedPage = {
   title: string
   description: string
   canonical: string
+  sitemap: boolean
   markup: string
 }
 
