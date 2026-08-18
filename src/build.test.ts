@@ -108,7 +108,7 @@ describe('case study page output', () => {
     const html = readCaseStudyHtml()
     expect(html).toContain('<title>Los Angeles Neurosciences | Michael Fortney</title>')
     expect(html).toContain(
-      '<link rel="canonical" href="https://michaelfortney.com/work/la-neurosciences" />',
+      '<link rel="canonical" href="https://fortney.dev/work/la-neurosciences" />',
     )
 
     const home = readHtml()
@@ -164,8 +164,8 @@ describe('case study page output', () => {
 // rather than derived from src/pages.tsx: adding a page to the sitemap is a
 // publication decision, so it should take an explicit edit here too.
 const PUBLISHED_URLS = [
-  'https://michaelfortney.com/',
-  'https://michaelfortney.com/work/la-neurosciences',
+  'https://fortney.dev/',
+  'https://fortney.dev/work/la-neurosciences',
 ]
 
 function canonicalOf(html: string): string | undefined {
@@ -208,11 +208,11 @@ describe('sitemap.xml and robots.txt', () => {
 
   it('lists only apex URLs, never www', () => {
     const xml = readFileSync(join(distDir, 'sitemap.xml'), 'utf-8')
-    expect(xml).not.toContain('www.michaelfortney.com')
+    expect(xml).not.toContain('www.fortney.dev')
   }, 120_000)
 
   it('points robots.txt at the sitemap', () => {
     const robots = readFileSync(join(distDir, 'robots.txt'), 'utf-8')
-    expect(robots).toContain('Sitemap: https://michaelfortney.com/sitemap.xml')
+    expect(robots).toContain('Sitemap: https://fortney.dev/sitemap.xml')
   }, 120_000)
 })
