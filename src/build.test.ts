@@ -107,7 +107,7 @@ describe('case study page output', () => {
     const html = readCaseStudyHtml()
     expect(html).toContain('<title>Los Angeles Neurosciences | Michael Fortney</title>')
     expect(html).toContain(
-      '<link rel="canonical" href="https://www.michaelfortney.com/work/la-neurosciences" />',
+      '<link rel="canonical" href="https://michaelfortney.com/work/la-neurosciences" />',
     )
 
     const home = readHtml()
