@@ -106,7 +106,7 @@ describe('case study page output', () => {
 
   it('carries its own title, description and canonical', () => {
     const html = readCaseStudyHtml()
-    expect(html).toContain('<title>Los Angeles Neurosciences | Michael Fortney</title>')
+    expect(html).toContain('<title>Los Angeles Neurosciences | Mike Fortney</title>')
     expect(html).toContain(
       '<link rel="canonical" href="https://fortney.dev/work/la-neurosciences" />',
     )

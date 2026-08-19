@@ -13,7 +13,7 @@ export type SiteContent = {
 }
 
 export const content: SiteContent = {
-  name: 'Michael Fortney',
+  name: 'Mike Fortney',
   dba: 'Grey Matter Tech',
   tagline: [
     'Frontend engineer, twenty years in. React, TypeScript, and Next.js.',

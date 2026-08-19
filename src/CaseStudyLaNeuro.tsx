@@ -9,7 +9,7 @@ export default function CaseStudyLaNeuro() {
       <header>
         <div className="header-name">
           <p>
-            <a href="/">Michael Fortney</a>
+            <a href="/">Mike Fortney</a>
           </p>
           <h1>{caseStudy.client}</h1>
           <p>{caseStudy.title}</p>

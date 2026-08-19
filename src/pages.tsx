@@ -17,7 +17,7 @@ export type PageDef = {
 export const pages: PageDef[] = [
   {
     outFile: 'index.html',
-    title: 'Michael Fortney | Senior Frontend Engineer, Contract',
+    title: 'Mike Fortney | Senior Frontend Engineer, Contract',
     description:
       'Senior frontend engineer available for contract work. React, TypeScript, and Next.js. Design systems, accessibility compliance, and safe delivery in live production systems.',
     canonical: 'https://fortney.dev/',
@@ -26,7 +26,7 @@ export const pages: PageDef[] = [
   },
   {
     outFile: 'work/la-neurosciences/index.html',
-    title: 'Los Angeles Neurosciences | Michael Fortney',
+    title: 'Los Angeles Neurosciences | Mike Fortney',
     description:
       'A neurology practice site rebuilt on Next.js and Sanity, with WCAG 2.2 AA accessibility built in from the start and an automated gate that keeps it there.',
     canonical: 'https://fortney.dev/work/la-neurosciences',

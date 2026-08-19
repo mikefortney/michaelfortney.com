@@ -28,7 +28,7 @@ describe('LA Neurosciences case study', () => {
   })
 
   it('links back to the homepage', () => {
-    const home = screen.getByRole('link', { name: /Michael Fortney/i })
+    const home = screen.getByRole('link', { name: /Mike Fortney/i })
     expect(home).toHaveAttribute('href', '/')
   })
 
