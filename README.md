@@ -1,2 +1,2 @@
-# michaelfortney.com
+# fortney.dev
 Mike Fortney's consulting site
