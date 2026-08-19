@@ -54,7 +54,7 @@ describe('production build output', () => {
   it('contains the fully rendered page copy in the shipped HTML', () => {
     const html = readHtml()
     for (const required of [
-      'mike@michaelfortney.com',
+      'mike@fortney.dev',
       'calendly.com/mike-fortney/30min',
       'US dollars (USD)',
       'Temecula, California',

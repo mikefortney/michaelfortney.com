@@ -66,7 +66,7 @@ export const content: SiteContent = {
     "Payment terms get agreed in writing before I start, and changes to an agreed scope get quoted separately so nothing turns into a surprise. Rates depend on scope, length, and whether you're an agency reselling me or a client hiring me directly. Ask and I'll send them the same day.",
   ],
   contact: {
-    email: 'mike@michaelfortney.com',
+    email: 'mike@fortney.dev',
     calendly: 'https://calendly.com/mike-fortney/30min',
     linkedin: 'https://www.linkedin.com/in/michaelfortney/',
     location: 'Temecula, California, United States',
